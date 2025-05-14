@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Lint & Test
+        run: |
+          pip install flake8 pytest
+          flake8 src/
+          pytest
+
+      - name: Build Docker image
+        run: |
+          docker build -t identity-risk-platform:${{ github.sha }} .

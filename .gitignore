@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# Terraform
+.terraform/
+*.tfstate*
+.terraform.lock.hcl
+
+# Mac/Linux
+*.swp
